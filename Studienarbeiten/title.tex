@@ -33,6 +33,12 @@ an der Technischen Hochschule Deggendorf\\
 \parbox[t]{.4\textwidth}{\usekomafont{author}
 Prüfer:\\
 \supervisor%
-}
+
+\ifthenelse{\equal{\secsupervisor}{}}{}
+{%
+\vspace{\baselineskip}
+Zweitprüfer:\\
+\secsupervisor%
+}}
 \end{titlepage}
 \cleardoublepage\par
