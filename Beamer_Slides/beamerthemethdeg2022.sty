@@ -56,6 +56,11 @@
 \setbeamercolor{itemize item}{fg=FontSecondBlue}
 \setbeamercolor{itemize subitem}{fg=FontSecondBlue}
 
+\setbeamercolor{normal text}{fg=black,bg=white} 
+\setbeamercolor{alerted text}{fg=FacultyColor} 
+\setbeamercolor{example text}{fg=black} 
+\setbeamercolor{structure}{fg=FontBlue} 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Set up fonts
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -168,6 +173,16 @@
   \end{beamercolorbox}
   \fi
 }
+
+% Display a slide before the current section with overview inf
+\AtBeginSection[]
+{%
+   \begin{frame}
+       \frametitle{\contentsname}
+       \tableofcontents[currentsection,hideothersubsections]
+   \end{frame}
+}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Wrap up
