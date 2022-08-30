@@ -1,0 +1,175 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% LaTeX Folienvorlage für die TH Deggendorf
+% Andreas Fischer, 2022
+%
+% Die Vorlage ist unter folgendem Link zu finden:
+% https://mygit.th-deg.de/afischer/thd-latex-vorlagen
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{beamerthemethdeg2022}
+ [August 2022, Folienvorlage TH Deggendorf]
+
+\mode<presentation>
+
+\RequirePackage{tikz}
+\RequirePackage{microtype}
+
+\usetikzlibrary{chains,shapes}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Set up colors
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\definecolor{FontBlue}{HTML}{002060}
+\definecolor{FontSecondBlue}{HTML}{09357d}
+\definecolor{SlideTitleBlue}{HTML}{1d4276}
+
+\definecolor{thd-biw}{HTML}{1FA637} % green
+\definecolor{thd-bwl}{HTML}{B2150E} % red
+\definecolor{thd-et-mt}{HTML}{FFD900} % yellow
+\definecolor{thd-mb}{HTML}{008ACC} % blue
+\definecolor{thd-nuw}{HTML}{5C3A8E} % purple
+\definecolor{thd-agw}{HTML}{F18800} % orange
+\definecolor{thd-ai}{HTML}{E73D55} % coral
+\definecolor{thd-ecri}{HTML}{17A2B0} % cyan
+
+\DeclareOption{biw}{\colorlet{FacultyColor}{thd-biw}}
+\DeclareOption{bwl}{\colorlet{FacultyColor}{thd-bwl}}
+\DeclareOption{et-mt}{\colorlet{FacultyColor}{thd-et-mt}}
+\DeclareOption{mb}{\colorlet{FacultyColor}{thd-mb}}
+\DeclareOption{nuw}{\colorlet{FacultyColor}{thd-nuw}}
+\DeclareOption{agw}{\colorlet{FacultyColor}{thd-agw}}
+\DeclareOption{ai}{\colorlet{FacultyColor}{thd-ai}}
+\DeclareOption{ecri}{\colorlet{FacultyColor}{thd-ecri}}
+
+\ExecuteOptions{ai}
+\ProcessOptions%
+
+\setbeamercolor{footline}{fg=FontSecondBlue}
+\setbeamercolor{title}{fg=FontBlue}
+\setbeamercolor{subtitle}{fg=white}
+\setbeamercolor{frametitle}{fg=white}
+\setbeamercolor{framesubtitle}{fg=FontSecondBlue}
+\setbeamercolor{block title}{fg=FontSecondBlue,bg=FontBlue!20}
+\setbeamercolor{block body}{bg=FontBlue!10}
+\setbeamercolor{itemize item}{fg=FontSecondBlue}
+\setbeamercolor{itemize subitem}{fg=FontSecondBlue}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Set up fonts
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setbeamerfont{title}{shape=\sffamily\scshape,size=\Huge}
+\setbeamerfont{subtitle}{shape=\sffamily\scshape,size=\Large}
+\setbeamerfont{title like}{shape=\sffamily\scshape}
+\setbeamerfont{frametitle}{shape=\sffamily\scshape}
+\setbeamerfont{framesubtitle}{shape=\sffamily\scshape,size=\normalsize}
+\setbeamerfont{section in head/foot}{shape=\scshape,size=\tiny}
+\setbeamerfont{footline}{size=\footnotesize}
+
+
+\setbeamertemplate{navigation symbols}{}
+%\setbeamertemplate{itemize item}{\color{FontSecondBlue}$\blacktriangleright$}
+%\setbeamertemplate{itemize subitem}{\color{FontSecondBlue}$\blacksquare$}
+
+\setbeamertemplate{background}
+{%
+  \ifnum\c@framenumber=1
+  \includegraphics[trim=0 1.5cm 0 2.5cm,clip,width=\paperwidth]{BG_Fak_AI.jpeg}
+\begin{tikzpicture}[overlay, remember picture]
+	\filldraw[color=white,shift={(current page.west)}] (.7,1.2) -- (\textwidth,1.2) -- (.98\textwidth,2.2) -- (1,2.1) -- cycle;
+\end{tikzpicture}
+  \else
+  \fi
+}
+
+\setbeamertemplate{title page}
+{%
+\begin{flushright}
+    \includegraphics[width=3cm]{THD_Logo.pdf}\par
+\end{flushright}
+\vspace{.3cm}
+\begin{beamercolorbox}{title}
+	\usebeamerfont{title}
+	\begin{flushleft}
+	\inserttitle
+	\end{flushleft}
+\end{beamercolorbox}
+\vspace{-.5cm}
+\begin{beamercolorbox}{subtitle}
+	\usebeamerfont{subtitle}
+	\begin{flushleft}
+	\insertsubtitle
+	\end{flushleft}
+\end{beamercolorbox}
+}
+
+\setbeamertemplate{footline} % show slide number on all slides but the first
+{%
+    \hspace{.05\textwidth}
+    \begin{minipage}{.1\textwidth}
+    \tikz[
+	    every node/.style={circle,on chain},
+	    start chain=going right,
+	    node distance=1mm,
+	    inner sep=.07cm,
+	    ]
+	    {%
+	    \node[fill=thd-biw] {};
+	    \node[fill=thd-bwl] {};
+	    \node[fill=thd-et-mt] {};
+	    \node[fill=thd-mb] {};
+	    \node[fill=thd-nuw] {};
+	    \node[fill=thd-agw] {};
+	    \node[fill=thd-ai] {};
+	    \node[fill=thd-ecri] {};
+    }
+  \end{minipage}
+  \hspace{.05\textwidth}
+  \begin{minipage}{.7\textwidth}
+    \begin{beamercolorbox}[center]{footline}
+	    \textls{\insertshortauthor, \insertshorttitle, \insertdate}
+    \end{beamercolorbox}
+  \end{minipage}
+  \begin{minipage}{.45cm}
+  \ifnum\c@framenumber=1
+  \else
+    \begin{beamercolorbox}[right]{footline}
+	    \insertframenumber/\inserttotalframenumber
+    \end{beamercolorbox}
+  \fi%
+  \end{minipage}
+
+  \vspace{.3cm}
+  \noindent
+  \textcolor{FacultyColor}{\rule{\textwidth}{.1cm}}
+}
+
+\setbeamertemplate{frametitle}
+{%
+  \begin{beamercolorbox}{frametitle}
+  \vspace{1em}
+  \tikz
+  {%
+	\filldraw[color=SlideTitleBlue] (-.2,-.2) -- (\textwidth,-.2) -- (.98\textwidth,.6) -- (0,.5) -- cycle;
+	  \node[anchor=base west] (title) at (0,0) {\insertframetitle};
+
+  }
+  \end{beamercolorbox}
+
+  \ifx\insertframesubtitle\@empty
+  \else
+  \begin{beamercolorbox}{framesubtitle}
+	  \usebeamerfont{framesubtitle}
+  \tikz{%
+	  \node at (-.2,0) {};
+	  \node[anchor=base west] (title) at (-.15,0) {\insertframesubtitle};
+  }
+  \end{beamercolorbox}
+  \fi
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Wrap up
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\mode<all>

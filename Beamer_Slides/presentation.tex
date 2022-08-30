@@ -4,6 +4,7 @@ aspectratio=169,  % Auskommentieren für einfaches 4:3 Verhältnis
 ]{beamer}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
 \usepackage{libertine}
 \usepackage{pgfpages}
 
@@ -12,13 +13,14 @@ aspectratio=169,  % Auskommentieren für einfaches 4:3 Verhältnis
 \usepackage{hyperref}
 \renewcommand*{\UrlFont}{\ttfamily\smaller\relax}
 
-\title{Folientitel\\ Ggf.\ zweizeilig}
+\title{Folientitel}
 \subtitle{Ein einführendes Beispiel\\ Zweite, und\\ dritte Zeile}
 \author[A. Fischer]  % Kurzer Name für Fußzeile
        {Andreas Fischer \\  % Voller Name für Titelfolie
 	\href{mailto:andreas.fischer@th-deg.de}{andreas.fischer@th-deg.de}}
 
-\usetheme{thdeg}
+%\usetheme{thdeg} % Altes Design
+\usetheme[ai]{thdeg2022}
 
 \begin{document}
 
