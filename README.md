@@ -17,10 +17,7 @@ Die [Vorlage für Studienarbeiten](https://mygit.th-deg.de/thd-latex/studienarbe
 
 ## Beamer_Slides
 
-In diesem Verzeichnis befindet sich eine Vorlage für LaTeX Beamer
-Präsentationen. Die Präsentation kann in `presentation.tex` bearbeitet werden.
-Auch hier kann das Projekt mit `make` erstellt werden und das resultierende PDF
-erhält den Verzeichnisnamen.
+Die [Vorlage für LaTeX/Beamer Präsentationen](https://mygit.th-deg.de/thd-latex/beamer-template) wurde in ein eigenes Repository ausgelagert.
 
 ## Klausuren
 
