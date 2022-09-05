@@ -16,24 +16,31 @@
 \RequirePackage{tikz}
 \RequirePackage{microtype}
 
-\usetikzlibrary{chains,shapes}
+\usetikzlibrary{chains,shapes,backgrounds}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Set up colors
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\definecolor{FontBlue}{HTML}{002060}
-\definecolor{FontSecondBlue}{HTML}{09357d}
-\definecolor{SlideTitleBlue}{HTML}{1d4276}
 
-\definecolor{thd-biw}{HTML}{1FA637} % green
-\definecolor{thd-bwl}{HTML}{B2150E} % red
-\definecolor{thd-et-mt}{HTML}{FFD900} % yellow
-\definecolor{thd-mb}{HTML}{008ACC} % blue
-\definecolor{thd-nuw}{HTML}{5C3A8E} % purple
-\definecolor{thd-agw}{HTML}{F18800} % orange
-\definecolor{thd-ai}{HTML}{E73D55} % coral
-\definecolor{thd-ecri}{HTML}{17A2B0} % cyan
+% Primary
+\definecolor{THD-BLAU}{HTML}{1a4273}
+\definecolor{THD-GRAU}{HTML}{6f6f6e}
 
+% Secondary
+\definecolor{thd-biw}{HTML}{13a538} % green
+\definecolor{thd-bwl}{HTML}{B2110E} % red
+\definecolor{thd-et-mt}{HTML}{e8b300} % yellow
+\definecolor{thd-mb}{HTML}{0085c8} % blue
+\definecolor{thd-nuw}{HTML}{59358c} % purple
+\definecolor{thd-agw}{HTML}{F18700} % orange
+\definecolor{thd-ai}{HTML}{E63c54} % coral
+\definecolor{thd-ecri}{HTML}{16A1af} % cyan
+
+% Tertiary
+\definecolor{MITTELGRAU}{HTML}{a8a8a8}
+\definecolor{HELLGRAU}{HTML}{dadada}
+
+\DeclareOption{thd}{\colorlet{FacultyColor}{THD-BLAU}}
 \DeclareOption{biw}{\colorlet{FacultyColor}{thd-biw}}
 \DeclareOption{bwl}{\colorlet{FacultyColor}{thd-bwl}}
 \DeclareOption{et-mt}{\colorlet{FacultyColor}{thd-et-mt}}
@@ -43,23 +50,23 @@
 \DeclareOption{ai}{\colorlet{FacultyColor}{thd-ai}}
 \DeclareOption{ecri}{\colorlet{FacultyColor}{thd-ecri}}
 
-\ExecuteOptions{ai}
+\ExecuteOptions{thd}
 \ProcessOptions%
 
-\setbeamercolor{footline}{fg=FontSecondBlue}
-\setbeamercolor{title}{fg=FontBlue}
+\setbeamercolor{footline}{fg=THD-BLAU}
+\setbeamercolor{title}{fg=THD-BLAU}
 \setbeamercolor{subtitle}{fg=white}
 \setbeamercolor{frametitle}{fg=white}
-\setbeamercolor{framesubtitle}{fg=FontSecondBlue}
-\setbeamercolor{block title}{fg=FontSecondBlue,bg=FontBlue!20}
-\setbeamercolor{block body}{bg=FontBlue!10}
-\setbeamercolor{itemize item}{fg=FontSecondBlue}
-\setbeamercolor{itemize subitem}{fg=FontSecondBlue}
+\setbeamercolor{framesubtitle}{fg=THD-BLAU}
+\setbeamercolor{block title}{fg=white,bg=FacultyColor}
+\setbeamercolor{block body}{bg=HELLGRAU}
+\setbeamercolor{itemize item}{fg=THD-BLAU}
+\setbeamercolor{itemize subitem}{fg=THD-BLAU}
 
 \setbeamercolor{normal text}{fg=black,bg=white} 
 \setbeamercolor{alerted text}{fg=FacultyColor} 
 \setbeamercolor{example text}{fg=black} 
-\setbeamercolor{structure}{fg=FontBlue} 
+\setbeamercolor{structure}{fg=THD-BLAU} 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Set up fonts
@@ -73,8 +80,6 @@
 
 
 \setbeamertemplate{navigation symbols}{}
-%\setbeamertemplate{itemize item}{\color{FontSecondBlue}$\blacktriangleright$}
-%\setbeamertemplate{itemize subitem}{\color{FontSecondBlue}$\blacksquare$}
 
 \setbeamertemplate{background}
 {%
@@ -87,21 +92,26 @@
 \setbeamertemplate{title page}
 {%
 \begin{flushright}
-    \includegraphics[width=3cm]{THD_Logo.pdf}\par
+    \includegraphics[width=4cm]{THD_Logo.pdf}\par
 \end{flushright}
 \vspace{.3cm}
 \begin{beamercolorbox}{title}
 	\usebeamerfont{title}
 	\begin{tikzpicture}
-	\filldraw[color=white] (-.1,-.1) -- (\textwidth,-.1) -- (.98\textwidth,1) -- (0,.9) -- cycle;
-	\node[anchor=base west] at (0,0) {\inserttitle};
+	\node[anchor=base west] (title) at (0,0) {\inserttitle};
+	\begin{scope}[on background layer]
+		\filldraw[color=white] ([shift={(-.1,.1)}] title.south west) -- ([shift={(.3,0)}] title.south east) -- (title.north east) -- ([shift={(0,-.1)}] title.north west) -- cycle;
+	\end{scope}
 	\end{tikzpicture}
 \end{beamercolorbox}
 \begin{beamercolorbox}{subtitle}
 	\usebeamerfont{subtitle}
 	\begin{tikzpicture}
 	\node at (0,0) {};
-	\node[anchor=base west,align=left] at (0,0) {\insertsubtitle};
+	\node[anchor=base west,align=left] (subtitle) at (0,0) {\insertsubtitle};
+	\begin{scope}[on background layer]
+	\filldraw[fill=FacultyColor,fill opacity=0.4,draw=none] (subtitle.north west) rectangle (subtitle.south east);
+	\end{scope}
 	\end{tikzpicture}
 \end{beamercolorbox}
 }
@@ -152,12 +162,14 @@
   \ifx\insertframetitle\@empty
   \else
   \begin{beamercolorbox}{frametitle}
-  \vspace{1em}
   \tikz
   {%
-	\filldraw[color=SlideTitleBlue] (-.2,-.2) -- (\textwidth,-.2) -- (.98\textwidth,.6) -- (0,.5) -- cycle;
-	  \node[anchor=base west] (title) at (0,0) {\insertframetitle};
-
+	  \node at (0,0) {};
+	  \node at (\textwidth,1) {};
+	  \node[anchor=base west] (title) at (0.1,0) {\insertframetitle};
+	\begin{scope}[on background layer]
+		\filldraw[color=FacultyColor] ([shift={(-.1,.1)}] title.south west) -- ([shift={(.3,0)}] title.south east) -- (title.north east) -- ([shift={(0,-.1)}] title.north west) -- cycle;
+	\end{scope}
   }
   \end{beamercolorbox}
   \fi
@@ -167,8 +179,9 @@
   \begin{beamercolorbox}{framesubtitle}
 	  \usebeamerfont{framesubtitle}
   \tikz{%
-	  \node at (-.2,0) {};
-	  \node[anchor=base west] (title) at (-.15,0) {\insertframesubtitle};
+	  \node at (0,0) {};
+	  \node at (\textwidth,0) {};
+	  \node[anchor=base west] (title) at (0.2,0) {\insertframesubtitle};
   }
   \end{beamercolorbox}
   \fi
