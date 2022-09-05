@@ -196,11 +196,11 @@
    \end{frame}
 }
 
-\newenvironment{halfpage}
+\newenvironment{halfpage}[1]
 {%
 \setbeamertemplate{background}
 {\tikz{%
-	\node[anchor=south west,inner sep=0] at (0,0.28125\paperwidth) {\includegraphics[width=\paperwidth]{BG_Fak_AI.jpeg}};
+	\node[anchor=south west,inner sep=0] at (0,0.28125\paperwidth) {\includegraphics[width=\paperwidth]{#1}};
 	\filldraw[color=white] (0,0.28125\paperwidth) -- (\paperwidth,0.2815\paperwidth) -- (\paperwidth,0.5625\paperwidth) -- (0,0.5625\paperwidth) -- cycle;
 }}
 \addtobeamertemplate{frametitle}{}{\vspace{2.5cm}}
