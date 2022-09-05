@@ -182,6 +182,9 @@
 	  \node at (0,0) {};
 	  \node at (\textwidth,0) {};
 	  \node[anchor=base west] (title) at (0.2,0) {\insertframesubtitle};
+	\begin{scope}[on background layer]
+		\filldraw[color=white] ([shift={(0,.1)}] title.south west) -- (title.south east) -- ([shift={(0.1,0)}] title.north east) -- ([shift={(-.1,-.1)}] title.north west) -- cycle;
+	\end{scope}
   }
   \end{beamercolorbox}
   \fi
@@ -200,8 +203,9 @@
 {%
 \setbeamertemplate{background}
 {\tikz{%
-	\node[anchor=south west,inner sep=0] at (0,0.28125\paperwidth) {\includegraphics[width=\paperwidth]{#1}};
-	\filldraw[color=white] (0,0.28125\paperwidth) -- (\paperwidth,0.2815\paperwidth) -- (\paperwidth,0.5625\paperwidth) -- (0,0.5625\paperwidth) -- cycle;
+	%\useasboundingbox (0,0) rectangle(\the\paperwidth,\the\paperheight);
+	\node[anchor=south west,inner sep=0] (background) at (0,0.28125\paperwidth) {\includegraphics[width=\paperwidth]{#1}};
+	\filldraw[draw=none,color=white] (background.south west) -- (background.south east) -- (\paperwidth,0.5625\paperwidth) -- (0,0.5625\paperwidth) -- cycle;
 }}
 \addtobeamertemplate{frametitle}{}{\vspace{2.5cm}}
 }{}
